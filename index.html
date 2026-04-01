@@ -244,7 +244,7 @@ const visited = new Set(JSON.parse(localStorage.getItem(lsKey) || '[]'));
 let currentKey = null, currentBooth = null, currentBlock = null;
 
 function init() {
-  if (!rowId) {
+  if (!rowId && !un) {
     document.getElementById('no-id').style.display = 'flex';
     return;
   }
