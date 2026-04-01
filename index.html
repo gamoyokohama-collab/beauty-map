@@ -29,8 +29,6 @@
     min-height: 100vh;
     padding-bottom: 60px;
   }
-
-  /* Header */
   .header {
     background: var(--surface);
     border-bottom: 1px solid var(--border);
@@ -45,65 +43,16 @@
     justify-content: space-between;
     margin-bottom: 10px;
   }
-  .event-name {
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: var(--accent);
-    font-weight: 500;
-    text-transform: uppercase;
-  }
-  .user-badge {
-    font-size: 11px;
-    color: var(--text2);
-    background: var(--surface2);
-    border: 1px solid var(--border2);
-    border-radius: 20px;
-    padding: 3px 10px;
-  }
-  .progress-area { }
-  .progress-nums {
-    display: flex;
-    justify-content: space-between;
-    font-size: 11px;
-    color: var(--text2);
-    margin-bottom: 5px;
-  }
-  .progress-nums strong {
-    color: var(--accent);
-    font-size: 14px;
-  }
-  .bar-bg {
-    height: 4px;
-    background: var(--surface2);
-    border-radius: 4px;
-    overflow: hidden;
-  }
-  .bar-fill {
-    height: 4px;
-    background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 100%);
-    border-radius: 4px;
-    transition: width 0.5s cubic-bezier(.4,0,.2,1);
-    width: 0%;
-  }
-
-  /* Main */
+  .event-name { font-size: 11px; letter-spacing: 2px; color: var(--accent); font-weight: 500; }
+  .user-badge { font-size: 11px; color: var(--text2); background: var(--surface2); border: 1px solid var(--border2); border-radius: 20px; padding: 3px 10px; }
+  .progress-nums { display: flex; justify-content: space-between; font-size: 11px; color: var(--text2); margin-bottom: 5px; }
+  .progress-nums strong { color: var(--accent); font-size: 14px; }
+  .bar-bg { height: 4px; background: var(--surface2); border-radius: 4px; overflow: hidden; }
+  .bar-fill { height: 4px; background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 100%); border-radius: 4px; transition: width 0.5s cubic-bezier(.4,0,.2,1); width: 0%; }
   .main { padding: 12px; }
-
-  /* Block */
   .block-section { margin-bottom: 10px; }
-  .block-label {
-    font-size: 9px;
-    letter-spacing: 3px;
-    color: var(--text3);
-    text-transform: uppercase;
-    margin-bottom: 5px;
-    padding-left: 2px;
-  }
-  .booth-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-  }
+  .block-label { font-size: 9px; letter-spacing: 3px; color: var(--text3); text-transform: uppercase; margin-bottom: 5px; padding-left: 2px; }
+  .booth-grid { display: flex; flex-wrap: wrap; gap: 5px; }
   .booth-cell {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -113,200 +62,41 @@
     color: var(--text2);
     cursor: pointer;
     transition: all 0.18s ease;
-    line-height: 1.3;
     text-align: center;
-    min-width: 0;
     position: relative;
     -webkit-tap-highlight-color: transparent;
+    user-select: none;
   }
   .booth-cell:active { transform: scale(0.93); }
-  .booth-cell.visited {
-    background: var(--visited-bg);
-    border-color: var(--visited-border);
-    color: var(--visited-text);
-  }
-  .booth-cell.visited::after {
-    content: '';
-    position: absolute;
-    top: 4px; right: 4px;
-    width: 6px; height: 6px;
-    background: var(--green);
-    border-radius: 50%;
-  }
-
-  /* Modal overlay */
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.75);
-    z-index: 200;
-    align-items: flex-end;
-    justify-content: center;
-  }
+  .booth-cell.visited { background: var(--visited-bg); border-color: var(--visited-border); color: var(--visited-text); }
+  .booth-cell.visited::after { content: ''; position: absolute; top: 4px; right: 4px; width: 6px; height: 6px; background: var(--green); border-radius: 50%; }
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 200; align-items: flex-end; justify-content: center; }
   .modal-overlay.open { display: flex; }
-  .modal-sheet {
-    background: var(--surface);
-    border-radius: 20px 20px 0 0;
-    border-top: 1px solid var(--border2);
-    width: 100%;
-    max-width: 480px;
-    padding: 0 0 32px;
-    animation: slideUp 0.25s cubic-bezier(.4,0,.2,1);
-  }
-  @keyframes slideUp {
-    from { transform: translateY(100%); }
-    to { transform: translateY(0); }
-  }
-  .modal-handle {
-    width: 36px; height: 4px;
-    background: var(--border2);
-    border-radius: 4px;
-    margin: 12px auto 20px;
-  }
+  .modal-sheet { background: var(--surface); border-radius: 20px 20px 0 0; border-top: 1px solid var(--border2); width: 100%; max-width: 480px; padding: 0 0 40px; animation: slideUp 0.25s cubic-bezier(.4,0,.2,1); }
+  @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+  .modal-handle { width: 36px; height: 4px; background: var(--border2); border-radius: 4px; margin: 12px auto 20px; }
   .modal-body { padding: 0 20px; }
-  .modal-block-tag {
-    font-size: 9px;
-    letter-spacing: 2px;
-    color: var(--accent);
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-  .modal-maker-name {
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 16px;
-    line-height: 1.2;
-  }
-  .modal-visited-badge {
-    display: none;
-    align-items: center;
-    gap: 6px;
-    font-size: 12px;
-    color: var(--visited-text);
-    background: var(--visited-bg);
-    border: 1px solid var(--visited-border);
-    border-radius: 20px;
-    padding: 5px 12px;
-    margin-bottom: 16px;
-    width: fit-content;
-  }
+  .modal-block-tag { font-size: 9px; letter-spacing: 2px; color: var(--accent); text-transform: uppercase; margin-bottom: 6px; }
+  .modal-maker-name { font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 16px; line-height: 1.2; }
+  .modal-visited-badge { display: none; align-items: center; gap: 6px; font-size: 12px; color: var(--visited-text); background: var(--visited-bg); border: 1px solid var(--visited-border); border-radius: 20px; padding: 5px 12px; margin-bottom: 16px; width: fit-content; }
   .modal-visited-badge.show { display: flex; }
-  .modal-visited-badge::before {
-    content: '';
-    width: 7px; height: 7px;
-    background: var(--green);
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-  .btn-hp {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-    padding: 13px;
-    border-radius: 10px;
-    border: 1px solid var(--border2);
-    background: var(--surface2);
-    color: var(--text);
-    font-size: 14px;
-    text-decoration: none;
-    margin-bottom: 10px;
-    cursor: pointer;
-    transition: background 0.15s;
-  }
-  .btn-hp:active { background: #2e2e2e; }
+  .modal-visited-badge::before { content: ''; width: 7px; height: 7px; background: var(--green); border-radius: 50%; flex-shrink: 0; }
+  .btn-hp { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 13px; border-radius: 10px; border: 1px solid var(--border2); background: var(--surface2); color: var(--text); font-size: 14px; text-decoration: none; margin-bottom: 10px; -webkit-tap-highlight-color: transparent; }
   .btn-hp-arrow { color: var(--accent); font-size: 12px; }
-  .btn-check {
-    width: 100%;
-    padding: 15px;
-    border-radius: 10px;
-    border: none;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.15s;
-    letter-spacing: 0.5px;
-  }
-  .btn-check.do {
-    background: var(--accent);
-    color: #1a1000;
-  }
-  .btn-check.do:active { background: var(--accent2); }
-  .btn-check.undo {
-    background: var(--surface2);
-    color: var(--text2);
-    border: 1px solid var(--border2);
-  }
-  .btn-close-area {
-    text-align: center;
-    margin-top: 14px;
-  }
-  .btn-close {
-    font-size: 12px;
-    color: var(--text3);
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 4px 16px;
-  }
-
-  /* Complete banner */
-  .complete-banner {
-    display: none;
-    margin: 12px;
-    background: linear-gradient(135deg, #1a2e0a 0%, #0f1f0a 100%);
-    border: 1px solid #3a6a1a;
-    border-radius: 12px;
-    padding: 16px 20px;
-    text-align: center;
-  }
+  .btn-check { width: 100%; padding: 15px; border-radius: 10px; border: none; font-size: 15px; font-weight: 700; cursor: pointer; letter-spacing: 0.5px; -webkit-tap-highlight-color: transparent; }
+  .btn-check.do   { background: var(--accent); color: #1a1000; }
+  .btn-check.undo { background: var(--surface2); color: var(--text2); border: 1px solid var(--border2); }
+  .btn-close-area { text-align: center; margin-top: 14px; }
+  .btn-close { font-size: 12px; color: var(--text3); background: none; border: none; cursor: pointer; padding: 4px 16px; }
+  .complete-banner { display: none; margin: 12px; background: #1a2e0a; border: 1px solid #3a6a1a; border-radius: 12px; padding: 16px 20px; text-align: center; }
   .complete-banner.show { display: block; }
-  .complete-banner-title {
-    font-size: 16px;
-    font-weight: 700;
-    color: #7ec84e;
-    letter-spacing: 1px;
-  }
-  .complete-banner-sub {
-    font-size: 11px;
-    color: #5a8a3a;
-    margin-top: 4px;
-  }
-
-  /* Error / no-id state */
-  .no-id-screen {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 60vh;
-    padding: 32px;
-    text-align: center;
-  }
-  .no-id-icon { font-size: 40px; margin-bottom: 16px; color: var(--text3); }
+  .complete-banner-title { font-size: 16px; font-weight: 700; color: #7ec84e; letter-spacing: 1px; }
+  .complete-banner-sub   { font-size: 11px; color: #5a8a3a; margin-top: 4px; }
+  .no-id-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 70vh; padding: 32px; text-align: center; }
+  .no-id-icon  { font-size: 40px; margin-bottom: 16px; color: var(--text3); }
   .no-id-title { font-size: 16px; color: var(--text2); margin-bottom: 8px; }
-  .no-id-sub { font-size: 12px; color: var(--text3); line-height: 1.7; }
-
-  /* Toast */
-  .toast {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%) translateY(80px);
-    background: #2a3a2a;
-    border: 1px solid var(--visited-border);
-    color: var(--visited-text);
-    border-radius: 30px;
-    padding: 10px 20px;
-    font-size: 13px;
-    font-weight: 500;
-    z-index: 300;
-    transition: transform 0.3s cubic-bezier(.4,0,.2,1);
-    white-space: nowrap;
-  }
+  .no-id-sub   { font-size: 12px; color: var(--text3); line-height: 1.7; }
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: #2a3a2a; border: 1px solid var(--visited-border); color: var(--visited-text); border-radius: 30px; padding: 10px 20px; font-size: 13px; font-weight: 500; z-index: 300; transition: transform 0.3s cubic-bezier(.4,0,.2,1); white-space: nowrap; }
   .toast.show { transform: translateX(-50%) translateY(0); }
 </style>
 </head>
@@ -317,13 +107,11 @@
     <div class="event-name">BEAUTY COLLECTION 2026</div>
     <div class="user-badge" id="user-badge">—</div>
   </div>
-  <div class="progress-area">
-    <div class="progress-nums">
-      <span>ブース訪問数</span>
-      <span><strong id="cnt">0</strong> / <span id="total">52</span></span>
-    </div>
-    <div class="bar-bg"><div class="bar-fill" id="bar"></div></div>
+  <div class="progress-nums">
+    <span>ブース訪問数</span>
+    <span><strong id="cnt">0</strong> / <span id="total">52</span></span>
   </div>
+  <div class="bar-bg"><div class="bar-fill" id="bar"></div></div>
 </div>
 
 <div id="no-id" class="no-id-screen" style="display:none;">
@@ -344,8 +132,8 @@
   <div class="modal-sheet">
     <div class="modal-handle"></div>
     <div class="modal-body">
-      <div class="modal-block-tag" id="m-block">BLOCK A</div>
-      <div class="modal-maker-name" id="m-name">メーカー名</div>
+      <div class="modal-block-tag" id="m-block"></div>
+      <div class="modal-maker-name" id="m-name"></div>
       <div class="modal-visited-badge" id="m-visited">訪問済み</div>
       <a class="btn-hp" id="m-hp" href="#" target="_blank" rel="noopener">
         <span>公式サイトを見る</span>
@@ -362,126 +150,112 @@
 <div class="toast" id="toast">訪問を記録しました</div>
 
 <script>
-// ============================================================
-// 設定
-// ============================================================
-const GAS_URL = 'YOUR_GAS_URL_HERE'; // ← デプロイ後のGAS URLに変更
+const GAS_URL = "https://script.google.com/macros/s/AKfycbxAQpELv9UAfazrTv0QoBaIfHO4abDtFluZRgbBP1hxOpdjhZGhgiSDfp-TfsFCG03C/exec";
 
 const BLOCKS = [
   {id:'A', label:'ブロック A', booths:[
-    {n:'タカラ', url:'https://www.takara-belmont.co.jp'},
-    {n:'エステシモ', url:'https://www.estesimo.com'},
-    {n:'マイクロバブル', url:'https://www.microbubble.net'},
+    {n:'タカラ',             url:'https://www.takara-belmont.co.jp'},
+    {n:'エステシモ',         url:'https://www.estesimo.com'},
+    {n:'マイクロバブル',     url:'https://www.microbubble.net'},
     {n:'ビューティメリット', url:'https://www.beautymerit.co.jp'},
-    {n:'So easy', url:''},
-    {n:'滝川', url:''},
-    {n:'菊星', url:'https://www.kikuboshi.co.jp'},
-    {n:'ダイソン', url:'https://www.dyson.co.jp'},
-    {n:'AVEDA', url:'https://www.aveda.co.jp'},
-    {n:'モロッカンオイル', url:'https://www.moroccanoil.jp'},
-    {n:'販促企画', url:''},
+    {n:'So easy',           url:''},
+    {n:'滝川',               url:''},
+    {n:'菊星',               url:'https://www.kikuboshi.co.jp'},
+    {n:'ダイソン',           url:'https://www.dyson.co.jp'},
+    {n:'AVEDA',             url:'https://www.aveda.co.jp'},
+    {n:'モロッカンオイル',   url:'https://www.moroccanoil.jp'},
+    {n:'販促企画',           url:''},
   ]},
   {id:'B', label:'ブロック B', booths:[
-    {n:'KINUJO', url:'https://kinujo.jp'},
-    {n:'Kirala', url:'https://kirala.co.jp'},
-    {n:'YAMAN', url:'https://www.yaman.co.jp'},
-    {n:'MUK', url:'https://muk.com.au'},
+    {n:'KINUJO',     url:'https://kinujo.jp'},
+    {n:'Kirala',     url:'https://kirala.co.jp'},
+    {n:'YAMAN',      url:'https://www.yaman.co.jp'},
+    {n:'MUK',        url:'https://muk.com.au'},
     {n:'ツインバード', url:'https://www.twinbird.jp'},
     {n:'アンドナイン', url:''},
-    {n:'LOA', url:''},
-    {n:'awaas', url:''},
-    {n:'LOBAL', url:''},
-    {n:'大西', url:''},
+    {n:'LOA',        url:''},
+    {n:'awaas',      url:''},
+    {n:'LOBAL',      url:''},
+    {n:'大西',        url:''},
   ]},
   {id:'C', label:'ブロック C', booths:[
-    {n:'ロレアル', url:'https://www.lorealprofessionnel.co.jp'},
-    {n:'アマトラ', url:'https://www.amatora.co.jp'},
-    {n:'セフティ', url:''},
+    {n:'ロレアル',   url:'https://www.lorealprofessionnel.co.jp'},
+    {n:'アマトラ',   url:'https://www.amatora.co.jp'},
+    {n:'セフティ',   url:''},
     {n:'リアル化学', url:''},
   ]},
   {id:'D', label:'ブロック D', booths:[
-    {n:'ミルボン', url:'https://www.milbon.co.jp'},
-    {n:'ヘンケル', url:'https://www.henkel.co.jp'},
+    {n:'ミルボン',     url:'https://www.milbon.co.jp'},
+    {n:'ヘンケル',     url:'https://www.henkel.co.jp'},
     {n:'ニューウェイ', url:''},
-    {n:'アリミノ', url:'https://www.arimino.co.jp'},
+    {n:'アリミノ',     url:'https://www.arimino.co.jp'},
   ]},
   {id:'E', label:'ブロック E', booths:[
-    {n:'ホーユー', url:'https://www.hoyu.co.jp'},
-    {n:'武田', url:''},
+    {n:'ホーユー',   url:'https://www.hoyu.co.jp'},
+    {n:'武田',       url:''},
     {n:'千代田化学', url:''},
-    {n:'TOOB', url:''},
+    {n:'TOOB',      url:''},
   ]},
   {id:'F', label:'ブロック F', booths:[
     {n:'ウェラ', url:'https://www.wella.com/ja-JP'},
-    {n:'UnG', url:''},
+    {n:'UnG',   url:''},
     {n:'GOALD', url:''},
     {n:'ルベル', url:'https://www.lebel.co.jp'},
   ]},
   {id:'G', label:'ブロック G', booths:[
-    {n:'ユーグレナ', url:'https://www.euglena.jp'},
-    {n:'セフィーヌ', url:'https://www.sefine.co.jp'},
-    {n:'SHIGETA', url:'https://shigeta-paris.jp/ja'},
-    {n:'マイハニー', url:''},
-    {n:'コーセー', url:'https://www.kose.co.jp'},
+    {n:'ユーグレナ',   url:'https://www.euglena.jp'},
+    {n:'セフィーヌ',   url:'https://www.sefine.co.jp'},
+    {n:'SHIGETA',     url:'https://shigeta-paris.jp/ja'},
+    {n:'マイハニー',   url:''},
+    {n:'コーセー',     url:'https://www.kose.co.jp'},
     {n:'プロラッシュ', url:''},
-    {n:'BJC', url:''},
-    {n:'イムダイン', url:'https://www.imdyne.co.jp'},
+    {n:'BJC',         url:''},
+    {n:'イムダイン',   url:'https://www.imdyne.co.jp'},
   ]},
   {id:'H', label:'ブロック H', booths:[
-    {n:'グランクラージュ', url:''},
-    {n:'デミ', url:'https://www.demi.co.jp'},
-    {n:'イーラル', url:''},
-    {n:'ナプラ', url:'https://www.napla.co.jp'},
-    {n:'ビーファースト', url:''},
-    {n:'マデナ', url:''},
-    {n:'Sins', url:''},
-    {n:'ハホニコ', url:'https://www.hahoniko.com'},
-    {n:'香栄化学', url:''},
-    {n:'ワイマック', url:''},
-    {n:'自由が丘クリニック', url:''},
-    {n:"F'sビューティ", url:''},
-    {n:'野口総合研究所', url:''},
-    {n:'グランテックス', url:''},
+    {n:'グランクラージュ',       url:''},
+    {n:'デミ',                   url:'https://www.demi.co.jp'},
+    {n:'イーラル',               url:''},
+    {n:'ナプラ',                 url:'https://www.napla.co.jp'},
+    {n:'ビーファースト',         url:''},
+    {n:'マデナ',                 url:''},
+    {n:'Sins',                   url:''},
+    {n:'ハホニコ',               url:'https://www.hahoniko.com'},
+    {n:'香栄化学',               url:''},
+    {n:'ワイマック',             url:''},
+    {n:'自由が丘クリニック',     url:''},
+    {n:"F'sビューティ",          url:''},
+    {n:'野口総合研究所',         url:''},
+    {n:'グランテックス',         url:''},
     {n:'パシフィックプロダクツ', url:''},
-    {n:'カエタス', url:''},
+    {n:'カエタス',               url:''},
   ]},
   {id:'I', label:'ブロック I', booths:[
-    {n:'バルクオム', url:'https://bulkhomme.com'},
-    {n:'アデランス', url:'https://www.aderans.co.jp'},
-    {n:'ニチリ', url:''},
-    {n:'サクシード', url:''},
-    {n:'ヤマノ', url:''},
-    {n:'フェザー', url:'https://www.feather.co.jp'},
-    {n:'内海', url:''},
-    {n:'水谷シザー', url:''},
-    {n:'Be-x', url:''},
-    {n:'サンコール', url:'https://www.suncool.co.jp'},
-    {n:'中野製薬', url:'https://www.nakano-seiyaku.co.jp'},
+    {n:'バルクオム',   url:'https://bulkhomme.com'},
+    {n:'アデランス',   url:'https://www.aderans.co.jp'},
+    {n:'ニチリ',       url:''},
+    {n:'サクシード',   url:''},
+    {n:'ヤマノ',       url:''},
+    {n:'フェザー',     url:'https://www.feather.co.jp'},
+    {n:'内海',         url:''},
+    {n:'水谷シザー',   url:''},
+    {n:'Be-x',        url:''},
+    {n:'サンコール',   url:'https://www.suncool.co.jp'},
+    {n:'中野製薬',     url:'https://www.nakano-seiyaku.co.jp'},
     {n:'テクノエイト', url:''},
   ]},
 ];
 
-const TOTAL = BLOCKS.reduce((s,b)=>s+b.booths.length, 0);
-
-// ============================================================
-// 状態管理
-// ============================================================
+const TOTAL  = BLOCKS.reduce((s,b) => s + b.booths.length, 0);
 const params = new URLSearchParams(location.search);
-const rowId  = params.get('id')  || '';
-const un     = params.get('un')  ? decodeURIComponent(params.get('un')) : '';
-const sn     = params.get('sn')  ? decodeURIComponent(params.get('sn')) : '';
+const rowId  = params.get('id') || '';
+const un     = params.get('un') ? decodeURIComponent(params.get('un')) : '';
+const sn     = params.get('sn') ? decodeURIComponent(params.get('sn')) : '';
 const lsKey  = 'bc_visited_' + (rowId || 'anon');
-
-// localStorageから既訪問を復元
 const visited = new Set(JSON.parse(localStorage.getItem(lsKey) || '[]'));
 
-let currentKey = null;
-let currentBooth = null;
-let currentBlock = null;
+let currentKey = null, currentBooth = null, currentBlock = null;
 
-// ============================================================
-// 初期化
-// ============================================================
 function init() {
   if (!rowId) {
     document.getElementById('no-id').style.display = 'flex';
@@ -494,22 +268,19 @@ function init() {
   updateProgress();
 }
 
-// ============================================================
-// マップ描画
-// ============================================================
 function renderMap() {
   const map = document.getElementById('map');
   map.innerHTML = '';
   BLOCKS.forEach(blk => {
-    const sec = document.createElement('div');
+    const sec  = document.createElement('div');
     sec.className = 'block-section';
-    const lbl = document.createElement('div');
+    const lbl  = document.createElement('div');
     lbl.className = 'block-label';
     lbl.textContent = blk.label;
     const grid = document.createElement('div');
     grid.className = 'booth-grid';
     blk.booths.forEach(b => {
-      const key = blk.id + ':' + b.n;
+      const key  = blk.id + ':' + b.n;
       const cell = document.createElement('div');
       cell.className = 'booth-cell' + (visited.has(key) ? ' visited' : '');
       cell.textContent = b.n;
@@ -522,9 +293,6 @@ function renderMap() {
   });
 }
 
-// ============================================================
-// 進捗更新
-// ============================================================
 function updateProgress() {
   const c = visited.size;
   document.getElementById('cnt').textContent = c;
@@ -533,34 +301,18 @@ function updateProgress() {
     'complete-banner' + (c === TOTAL ? ' show' : '');
 }
 
-// ============================================================
-// モーダル
-// ============================================================
 function openModal(key, b, blk) {
-  currentKey   = key;
-  currentBooth = b;
-  currentBlock = blk;
-
+  currentKey = key; currentBooth = b; currentBlock = blk;
   document.getElementById('m-block').textContent = 'BEAUTY COLLECTION — ' + blk.label;
   document.getElementById('m-name').textContent  = b.n;
-
   const isVisited = visited.has(key);
-  const badge = document.getElementById('m-visited');
-  badge.className = 'modal-visited-badge' + (isVisited ? ' show' : '');
-
+  document.getElementById('m-visited').className = 'modal-visited-badge' + (isVisited ? ' show' : '');
   const hp = document.getElementById('m-hp');
   if (b.url) { hp.href = b.url; hp.style.display = 'flex'; }
   else        { hp.style.display = 'none'; }
-
   const chk = document.getElementById('m-chk');
-  if (isVisited) {
-    chk.textContent  = '訪問済みを取り消す';
-    chk.className    = 'btn-check undo';
-  } else {
-    chk.textContent  = '訪問しました ✓';
-    chk.className    = 'btn-check do';
-  }
-
+  chk.textContent = isVisited ? '訪問済みを取り消す' : '訪問しました ✓';
+  chk.className   = 'btn-check ' + (isVisited ? 'undo' : 'do');
   document.getElementById('modal').className = 'modal-overlay open';
 }
 
@@ -573,37 +325,22 @@ document.getElementById('modal').addEventListener('click', e => {
   if (e.target === document.getElementById('modal')) closeModal();
 });
 
-// ============================================================
-// チェックイン
-// ============================================================
 document.getElementById('m-chk').addEventListener('click', async () => {
   if (!currentKey) return;
-
   const wasVisited = visited.has(currentKey);
-  if (wasVisited) {
-    visited.delete(currentKey);
-  } else {
-    visited.add(currentKey);
-  }
-
-  // localStorageに即保存（オフラインでも残る）
+  wasVisited ? visited.delete(currentKey) : visited.add(currentKey);
   localStorage.setItem(lsKey, JSON.stringify([...visited]));
   updateProgress();
   renderMap();
   closeModal();
-
-  // 訪問した時だけGASにログ送信
   if (!wasVisited) {
     showToast('訪問を記録しました');
     sendLog(currentBlock.id, currentBooth.n);
   }
 });
 
-// ============================================================
-// GASへのログ送信（失敗してもUI側はすでに更新済み）
-// ============================================================
 async function sendLog(blockId, boothName) {
-  if (!rowId || !GAS_URL || GAS_URL === 'YOUR_GAS_URL_HERE') return;
+  if (!rowId) return;
   try {
     const url = GAS_URL
       + '?mode=checkin'
@@ -613,14 +350,11 @@ async function sendLog(blockId, boothName) {
       + '&block=' + encodeURIComponent(blockId)
       + '&booth=' + encodeURIComponent(boothName);
     await fetch(url, { method: 'GET', mode: 'no-cors' });
-  } catch(e) {
-    console.warn('ログ送信失敗（記録は端末に保存済み）:', e);
+  } catch(err) {
+    console.warn('ログ送信失敗（端末には保存済み）:', err);
   }
 }
 
-// ============================================================
-// トースト通知
-// ============================================================
 let toastTimer = null;
 function showToast(msg) {
   const t = document.getElementById('toast');
@@ -630,9 +364,6 @@ function showToast(msg) {
   toastTimer = setTimeout(() => { t.className = 'toast'; }, 2200);
 }
 
-// ============================================================
-// 起動
-// ============================================================
 init();
 </script>
 </body>
