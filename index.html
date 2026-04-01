@@ -37,12 +37,7 @@
     top: 0;
     z-index: 100;
   }
-  .header-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
+  .header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
   .event-name { font-size: 11px; letter-spacing: 2px; color: var(--accent); font-weight: 500; }
   .user-badge { font-size: 11px; color: var(--text2); background: var(--surface2); border: 1px solid var(--border2); border-radius: 20px; padding: 3px 10px; }
   .progress-nums { display: flex; justify-content: space-between; font-size: 11px; color: var(--text2); margin-bottom: 5px; }
@@ -54,18 +49,10 @@
   .block-label { font-size: 9px; letter-spacing: 3px; color: var(--text3); text-transform: uppercase; margin-bottom: 5px; padding-left: 2px; }
   .booth-grid { display: flex; flex-wrap: wrap; gap: 5px; }
   .booth-cell {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 7px 10px;
-    font-size: 11px;
-    color: var(--text2);
-    cursor: pointer;
-    transition: all 0.18s ease;
-    text-align: center;
-    position: relative;
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
+    padding: 7px 10px; font-size: 11px; color: var(--text2); cursor: pointer;
+    transition: all 0.18s ease; text-align: center; position: relative;
+    -webkit-tap-highlight-color: transparent; user-select: none;
   }
   .booth-cell:active { transform: scale(0.93); }
   .booth-cell.visited { background: var(--visited-bg); border-color: var(--visited-border); color: var(--visited-text); }
@@ -150,7 +137,8 @@
 <div class="toast" id="toast">訪問を記録しました</div>
 
 <script>
-const GAS_URL = "https://script.google.com/macros/s/AKfycbxAQpELv9UAfazrTv0QoBaIfHO4abDtFluZRgbBP1hxOpdjhZGhgiSDfp-TfsFCG03C/exec";
+// ★ 新しいデプロイURLに更新済み
+const GAS_URL = "https://script.google.com/macros/s/AKfycbxAQpELv9UAfazrTv0QoBalfHO4abDtFluZRgbBP1hxOpdjhZGhgiSDfp-TfsFCG03C/exec";
 
 const BLOCKS = [
   {id:'A', label:'ブロック A', booths:[
@@ -167,16 +155,16 @@ const BLOCKS = [
     {n:'販促企画',           url:''},
   ]},
   {id:'B', label:'ブロック B', booths:[
-    {n:'KINUJO',     url:'https://kinujo.jp'},
-    {n:'Kirala',     url:'https://kirala.co.jp'},
-    {n:'YAMAN',      url:'https://www.yaman.co.jp'},
-    {n:'MUK',        url:'https://muk.com.au'},
-    {n:'ツインバード', url:'https://www.twinbird.jp'},
+    {n:'KINUJO',      url:'https://kinujo.jp'},
+    {n:'Kirala',      url:'https://kirala.co.jp'},
+    {n:'YAMAN',       url:'https://www.yaman.co.jp'},
+    {n:'MUK',         url:'https://muk.com.au'},
+    {n:'ツインバード',  url:'https://www.twinbird.jp'},
     {n:'アンドナイン', url:''},
-    {n:'LOA',        url:''},
-    {n:'awaas',      url:''},
-    {n:'LOBAL',      url:''},
-    {n:'大西',        url:''},
+    {n:'LOA',         url:''},
+    {n:'awaas',       url:''},
+    {n:'LOBAL',       url:''},
+    {n:'大西',         url:''},
   ]},
   {id:'C', label:'ブロック C', booths:[
     {n:'ロレアル',   url:'https://www.lorealprofessionnel.co.jp'},
@@ -246,12 +234,12 @@ const BLOCKS = [
   ]},
 ];
 
-const TOTAL  = BLOCKS.reduce((s,b) => s + b.booths.length, 0);
-const params = new URLSearchParams(location.search);
-const rowId  = params.get('id') || '';
-const un     = params.get('un') ? decodeURIComponent(params.get('un')) : '';
-const sn     = params.get('sn') ? decodeURIComponent(params.get('sn')) : '';
-const lsKey  = 'bc_visited_' + (rowId || 'anon');
+const TOTAL   = BLOCKS.reduce((s,b) => s + b.booths.length, 0);
+const params  = new URLSearchParams(location.search);
+const rowId   = params.get('id') || '';
+const un      = params.get('un') ? decodeURIComponent(params.get('un')) : '';
+const sn      = params.get('sn') ? decodeURIComponent(params.get('sn')) : '';
+const lsKey   = 'bc_visited_' + (rowId || 'anon');
 const visited = new Set(JSON.parse(localStorage.getItem(lsKey) || '[]'));
 
 let currentKey = null, currentBooth = null, currentBlock = null;
