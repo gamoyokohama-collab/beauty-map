@@ -5,85 +5,90 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>BEAUTY COLLECTION ブース回遊マップ</title>
 <style>
-  :root {
-    --bg: #0f0f0f;
-    --surface: #1a1a1a;
-    --surface2: #242424;
-    --border: rgba(255,255,255,0.08);
-    --border2: rgba(255,255,255,0.15);
-    --text: #f0f0f0;
-    --text2: #999;
-    --text3: #555;
-    --accent: #c8a96e;
-    --accent2: #e8c98e;
-    --visited-bg: #1a2e1a;
-    --visited-border: #3a6a3a;
-    --visited-text: #7ec87e;
-    --green: #4caf50;
-  }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    background: var(--bg);
-    color: var(--text);
+    background: #f5f5f0;
     font-family: 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
     min-height: 100vh;
     padding-bottom: 60px;
   }
+
+  /* Header */
   .header {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 16px;
+    background: #fff;
+    border-bottom: 2px solid #e8c547;
+    padding: 14px 16px;
     position: sticky;
     top: 0;
     z-index: 100;
   }
   .header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-  .event-name { font-size: 11px; letter-spacing: 2px; color: var(--accent); font-weight: 500; }
-  .user-badge { font-size: 11px; color: var(--text2); background: var(--surface2); border: 1px solid var(--border2); border-radius: 20px; padding: 3px 10px; }
-  .progress-nums { display: flex; justify-content: space-between; font-size: 11px; color: var(--text2); margin-bottom: 5px; }
-  .progress-nums strong { color: var(--accent); font-size: 14px; }
-  .bar-bg { height: 4px; background: var(--surface2); border-radius: 4px; overflow: hidden; }
-  .bar-fill { height: 4px; background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 100%); border-radius: 4px; transition: width 0.5s cubic-bezier(.4,0,.2,1); width: 0%; }
+  .event-name { font-size: 12px; font-weight: 700; letter-spacing: 2px; color: #b8960a; }
+  .user-badge { font-size: 12px; color: #555; background: #f5f5f0; border: 1px solid #ddd; border-radius: 20px; padding: 4px 12px; }
+  .progress-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+  .progress-label { font-size: 13px; color: #333; font-weight: 500; }
+  .progress-count { font-size: 15px; font-weight: 700; color: #b8960a; }
+  .bar-bg { height: 6px; background: #eee; border-radius: 6px; overflow: hidden; }
+  .bar-fill { height: 6px; background: #e8c547; border-radius: 6px; transition: width 0.4s ease; width: 0%; }
+
+  /* Map */
   .main { padding: 12px; }
-  .block-section { margin-bottom: 10px; }
-  .block-label { font-size: 9px; letter-spacing: 3px; color: var(--text3); text-transform: uppercase; margin-bottom: 5px; padding-left: 2px; }
-  .booth-grid { display: flex; flex-wrap: wrap; gap: 5px; }
+  .block-section { margin-bottom: 14px; }
+  .block-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #999; text-transform: uppercase; margin-bottom: 6px; padding-left: 2px; }
+  .booth-grid { display: flex; flex-wrap: wrap; gap: 6px; }
   .booth-cell {
-    background: var(--surface); border: 1px solid var(--border); border-radius: 6px;
-    padding: 7px 10px; font-size: 11px; color: var(--text2); cursor: pointer;
-    transition: all 0.18s ease; text-align: center; position: relative;
-    -webkit-tap-highlight-color: transparent; user-select: none;
+    background: #fff;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: center;
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
   }
   .booth-cell:active { transform: scale(0.93); }
-  .booth-cell.visited { background: var(--visited-bg); border-color: var(--visited-border); color: var(--visited-text); }
-  .booth-cell.visited::after { content: ''; position: absolute; top: 4px; right: 4px; width: 6px; height: 6px; background: var(--green); border-radius: 50%; }
-  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 200; align-items: flex-end; justify-content: center; }
+  .booth-cell.visited { background: #fffbea; border-color: #e8c547; color: #7a6000; }
+  .booth-cell.visited::after { content: '✓'; position: absolute; top: 3px; right: 5px; font-size: 9px; color: #b8960a; font-weight: 700; }
+
+  /* Modal */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; align-items: flex-end; justify-content: center; }
   .modal-overlay.open { display: flex; }
-  .modal-sheet { background: var(--surface); border-radius: 20px 20px 0 0; border-top: 1px solid var(--border2); width: 100%; max-width: 480px; padding: 0 0 40px; animation: slideUp 0.25s cubic-bezier(.4,0,.2,1); }
+  .modal-sheet { background: #fff; border-radius: 20px 20px 0 0; width: 100%; max-width: 480px; padding: 0 0 40px; animation: slideUp 0.25s ease; }
   @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-  .modal-handle { width: 36px; height: 4px; background: var(--border2); border-radius: 4px; margin: 12px auto 20px; }
+  .modal-handle { width: 36px; height: 4px; background: #ddd; border-radius: 4px; margin: 12px auto 20px; }
   .modal-body { padding: 0 20px; }
-  .modal-block-tag { font-size: 9px; letter-spacing: 2px; color: var(--accent); text-transform: uppercase; margin-bottom: 6px; }
-  .modal-maker-name { font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 16px; line-height: 1.2; }
-  .modal-visited-badge { display: none; align-items: center; gap: 6px; font-size: 12px; color: var(--visited-text); background: var(--visited-bg); border: 1px solid var(--visited-border); border-radius: 20px; padding: 5px 12px; margin-bottom: 16px; width: fit-content; }
+  .modal-block-tag { font-size: 10px; font-weight: 700; letter-spacing: 2px; color: #b8960a; margin-bottom: 4px; }
+  .modal-maker-name { font-size: 22px; font-weight: 700; color: #222; margin-bottom: 16px; line-height: 1.2; }
+  .modal-visited-badge { display: none; align-items: center; gap: 6px; font-size: 12px; color: #7a6000; background: #fffbea; border: 1px solid #e8c547; border-radius: 20px; padding: 5px 12px; margin-bottom: 16px; width: fit-content; }
   .modal-visited-badge.show { display: flex; }
-  .modal-visited-badge::before { content: ''; width: 7px; height: 7px; background: var(--green); border-radius: 50%; flex-shrink: 0; }
-  .btn-hp { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 13px; border-radius: 10px; border: 1px solid var(--border2); background: var(--surface2); color: var(--text); font-size: 14px; text-decoration: none; margin-bottom: 10px; -webkit-tap-highlight-color: transparent; }
-  .btn-hp-arrow { color: var(--accent); font-size: 12px; }
+  .modal-visited-badge::before { content: ''; width: 7px; height: 7px; background: #b8960a; border-radius: 50%; flex-shrink: 0; }
+  .btn-hp { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; padding: 13px; border-radius: 10px; border: 1.5px solid #ddd; background: #f9f9f9; color: #333; font-size: 14px; font-weight: 500; text-decoration: none; margin-bottom: 10px; -webkit-tap-highlight-color: transparent; }
+  .btn-hp-arrow { color: #b8960a; }
   .btn-check { width: 100%; padding: 15px; border-radius: 10px; border: none; font-size: 15px; font-weight: 700; cursor: pointer; letter-spacing: 0.5px; -webkit-tap-highlight-color: transparent; }
-  .btn-check.do   { background: var(--accent); color: #1a1000; }
-  .btn-check.undo { background: var(--surface2); color: var(--text2); border: 1px solid var(--border2); }
-  .btn-close-area { text-align: center; margin-top: 14px; }
-  .btn-close { font-size: 12px; color: var(--text3); background: none; border: none; cursor: pointer; padding: 4px 16px; }
-  .complete-banner { display: none; margin: 12px; background: #1a2e0a; border: 1px solid #3a6a1a; border-radius: 12px; padding: 16px 20px; text-align: center; }
+  .btn-check.do { background: #e8c547; color: #3d3000; }
+  .btn-check.undo { background: #f5f5f5; color: #888; border: 1.5px solid #ddd; }
+  .btn-close-area { text-align: center; margin-top: 12px; }
+  .btn-close { font-size: 12px; color: #aaa; background: none; border: none; cursor: pointer; padding: 4px 16px; }
+
+  /* Complete */
+  .complete-banner { display: none; margin: 12px; background: #fffbea; border: 2px solid #e8c547; border-radius: 12px; padding: 16px; text-align: center; }
   .complete-banner.show { display: block; }
-  .complete-banner-title { font-size: 16px; font-weight: 700; color: #7ec84e; letter-spacing: 1px; }
-  .complete-banner-sub   { font-size: 11px; color: #5a8a3a; margin-top: 4px; }
+  .complete-banner-title { font-size: 16px; font-weight: 700; color: #7a6000; }
+  .complete-banner-sub { font-size: 12px; color: #b8960a; margin-top: 4px; }
+
+  /* No ID */
   .no-id-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 70vh; padding: 32px; text-align: center; }
-  .no-id-icon  { font-size: 40px; margin-bottom: 16px; color: var(--text3); }
-  .no-id-title { font-size: 16px; color: var(--text2); margin-bottom: 8px; }
-  .no-id-sub   { font-size: 12px; color: var(--text3); line-height: 1.7; }
-  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: #2a3a2a; border: 1px solid var(--visited-border); color: var(--visited-text); border-radius: 30px; padding: 10px 20px; font-size: 13px; font-weight: 500; z-index: 300; transition: transform 0.3s cubic-bezier(.4,0,.2,1); white-space: nowrap; }
+  .no-id-icon { font-size: 40px; margin-bottom: 16px; color: #ccc; }
+  .no-id-title { font-size: 16px; color: #555; margin-bottom: 8px; font-weight: 500; }
+  .no-id-sub { font-size: 12px; color: #aaa; line-height: 1.7; }
+
+  /* Toast */
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: #fff; border: 1.5px solid #e8c547; color: #7a6000; border-radius: 30px; padding: 10px 20px; font-size: 13px; font-weight: 700; z-index: 300; transition: transform 0.3s ease; white-space: nowrap; }
   .toast.show { transform: translateX(-50%) translateY(0); }
 </style>
 </head>
@@ -94,9 +99,9 @@
     <div class="event-name">BEAUTY COLLECTION 2026</div>
     <div class="user-badge" id="user-badge">—</div>
   </div>
-  <div class="progress-nums">
-    <span>ブース訪問数</span>
-    <span><strong id="cnt">0</strong> / <span id="total">52</span></span>
+  <div class="progress-row">
+    <span class="progress-label">ブース訪問数</span>
+    <span class="progress-count"><span id="cnt">0</span> / <span id="total">52</span></span>
   </div>
   <div class="bar-bg"><div class="bar-fill" id="bar"></div></div>
 </div>
@@ -134,10 +139,10 @@
   </div>
 </div>
 
-<div class="toast" id="toast">訪問を記録しました</div>
+<div class="toast" id="toast">訪問を記録しました ✓</div>
 
 <script>
-const GAS_URL = "https://script.google.com/macros/s/AKfycbxAQpELv9UAfazrTv0QoBalfHO4abDtFluZRgbBP1hxOpdjhZGhgiSDfp-TfsFCG03C/exec";
+const GAS_URL = "https://script.google.com/macros/s/AKfycbymehOYcO4G4msrPDcCZ7q6AlLFLfCRI_b82FIPiAsXZdECMAGHEH3S2bsg92UIQrD3GA/exec";
 
 const BLOCKS = [
   {id:'A', label:'ブロック A', booths:[
@@ -321,7 +326,7 @@ document.getElementById('m-chk').addEventListener('click', async () => {
   renderMap();
   closeModal();
   if (!wasVisited) {
-    showToast('訪問を記録しました');
+    showToast('訪問を記録しました ✓');
     sendLog(currentBlock.id, currentBooth.n);
   }
 });
