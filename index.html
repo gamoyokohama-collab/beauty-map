@@ -67,8 +67,6 @@
   .modal-visited-badge { display: none; align-items: center; gap: 6px; font-size: 12px; color: #7a6000; background: #fffbea; border: 1px solid #e8c547; border-radius: 20px; padding: 5px 12px; margin-bottom: 16px; width: fit-content; }
   .modal-visited-badge.show { display: flex; }
   .modal-visited-badge::before { content: ''; width: 7px; height: 7px; background: #b8960a; border-radius: 50%; flex-shrink: 0; }
-  .btn-hp { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; padding: 13px; border-radius: 10px; border: 1.5px solid #ddd; background: #f9f9f9; color: #333; font-size: 14px; font-weight: 500; text-decoration: none; margin-bottom: 10px; -webkit-tap-highlight-color: transparent; }
-  .btn-hp-arrow { color: #b8960a; }
   .btn-check { width: 100%; padding: 15px; border-radius: 10px; border: none; font-size: 15px; font-weight: 700; cursor: pointer; letter-spacing: 0.5px; -webkit-tap-highlight-color: transparent; }
   .btn-check.do { background: #e8c547; color: #3d3000; }
   .btn-check.undo { background: #f5f5f5; color: #888; border: 1.5px solid #ddd; }
@@ -101,7 +99,7 @@
   </div>
   <div class="progress-row">
     <span class="progress-label">ブース訪問数</span>
-    <span class="progress-count"><span id="cnt">0</span> / <span id="total">52</span></span>
+    <span class="progress-count"><span id="cnt">0</span> / <span id="total">0</span></span>
   </div>
   <div class="bar-bg"><div class="bar-fill" id="bar"></div></div>
 </div>
@@ -127,10 +125,6 @@
       <div class="modal-block-tag" id="m-block"></div>
       <div class="modal-maker-name" id="m-name"></div>
       <div class="modal-visited-badge" id="m-visited">訪問済み</div>
-      <a class="btn-hp" id="m-hp" href="#" target="_blank" rel="noopener">
-        <span>公式サイトを見る</span>
-        <span class="btn-hp-arrow">↗</span>
-      </a>
       <button class="btn-check do" id="m-chk">訪問しました ✓</button>
       <div class="btn-close-area">
         <button class="btn-close" id="m-close">閉じる</button>
@@ -144,101 +138,132 @@
 <script>
 const GAS_URL = "https://script.google.com/macros/s/AKfycbymehOYcO4G4msrPDcCZ7q6AlLFLfCRI_b82FIPiAsXZdECMAGHEH3S2bsg92UIQrD3GA/exec";
 
+// ブロック・ブース定義
+// エリア分けPDFのエリア記号・並び順に完全準拠
+// 図面PDFの配置順（左→右）に準拠
 const BLOCKS = [
-  {id:'A', label:'ブロック A', booths:[
-    {n:'タカラ',             url:'https://www.takara-belmont.co.jp'},
-    {n:'エステシモ',         url:'https://www.estesimo.com'},
-    {n:'マイクロバブル',     url:'https://www.microbubble.net'},
-    {n:'ビューティメリット', url:'https://www.beautymerit.co.jp'},
-    {n:'So easy',           url:''},
-    {n:'滝川',               url:''},
-    {n:'菊星',               url:'https://www.kikuboshi.co.jp'},
-    {n:'ダイソン',           url:'https://www.dyson.co.jp'},
-    {n:'AVEDA',             url:'https://www.aveda.co.jp'},
-    {n:'モロッカンオイル',   url:'https://www.moroccanoil.jp'},
-    {n:'販促企画',           url:''},
-  ]},
-  {id:'B', label:'ブロック B', booths:[
-    {n:'KINUJO',      url:'https://kinujo.jp'},
-    {n:'Kirala',      url:'https://kirala.co.jp'},
-    {n:'YAMAN',       url:'https://www.yaman.co.jp'},
-    {n:'MUK',         url:'https://muk.com.au'},
-    {n:'ツインバード',  url:'https://www.twinbird.jp'},
-    {n:'アンドナイン', url:''},
-    {n:'LOA',         url:''},
-    {n:'awaas',       url:''},
-    {n:'LOBAL',       url:''},
-    {n:'大西',         url:''},
-  ]},
-  {id:'C', label:'ブロック C', booths:[
-    {n:'ロレアル',   url:'https://www.lorealprofessionnel.co.jp'},
-    {n:'アマトラ',   url:'https://www.amatora.co.jp'},
-    {n:'セフティ',   url:''},
-    {n:'リアル化学', url:''},
-  ]},
-  {id:'D', label:'ブロック D', booths:[
-    {n:'ミルボン',     url:'https://www.milbon.co.jp'},
-    {n:'ヘンケル',     url:'https://www.henkel.co.jp'},
-    {n:'ニューウェイ', url:''},
-    {n:'アリミノ',     url:'https://www.arimino.co.jp'},
-  ]},
-  {id:'E', label:'ブロック E', booths:[
-    {n:'ホーユー',   url:'https://www.hoyu.co.jp'},
-    {n:'武田',       url:''},
-    {n:'千代田化学', url:''},
-    {n:'TOOB',      url:''},
-  ]},
-  {id:'F', label:'ブロック F', booths:[
-    {n:'ウェラ', url:'https://www.wella.com/ja-JP'},
-    {n:'UnG',   url:''},
-    {n:'GOALD', url:''},
-    {n:'ルベル', url:'https://www.lebel.co.jp'},
-  ]},
-  {id:'G', label:'ブロック G', booths:[
-    {n:'ユーグレナ',   url:'https://www.euglena.jp'},
-    {n:'セフィーヌ',   url:'https://www.sefine.co.jp'},
-    {n:'SHIGETA',     url:'https://shigeta-paris.jp/ja'},
-    {n:'マイハニー',   url:''},
-    {n:'コーセー',     url:'https://www.kose.co.jp'},
-    {n:'プロラッシュ', url:''},
-    {n:'BJC',         url:''},
-    {n:'イムダイン',   url:'https://www.imdyne.co.jp'},
-  ]},
-  {id:'H', label:'ブロック H', booths:[
-    {n:'グランクラージュ',       url:''},
-    {n:'デミ',                   url:'https://www.demi.co.jp'},
-    {n:'イーラル',               url:''},
-    {n:'ナプラ',                 url:'https://www.napla.co.jp'},
-    {n:'ビーファースト',         url:''},
-    {n:'マデナ',                 url:''},
-    {n:'Sins',                   url:''},
-    {n:'ハホニコ',               url:'https://www.hahoniko.com'},
-    {n:'香栄化学',               url:''},
-    {n:'ワイマック',             url:''},
-    {n:'自由が丘クリニック',     url:''},
-    {n:"F'sビューティ",          url:''},
-    {n:'野口総合研究所',         url:''},
-    {n:'グランテックス',         url:''},
-    {n:'パシフィックプロダクツ', url:''},
-    {n:'カエタス',               url:''},
-  ]},
-  {id:'I', label:'ブロック I', booths:[
-    {n:'バルクオム',   url:'https://bulkhomme.com'},
-    {n:'アデランス',   url:'https://www.aderans.co.jp'},
-    {n:'ニチリ',       url:''},
-    {n:'サクシード',   url:''},
-    {n:'ヤマノ',       url:''},
-    {n:'フェザー',     url:'https://www.feather.co.jp'},
-    {n:'内海',         url:''},
-    {n:'水谷シザー',   url:''},
-    {n:'Be-x',        url:''},
-    {n:'サンコール',   url:'https://www.suncool.co.jp'},
-    {n:'中野製薬',     url:'https://www.nakano-seiyaku.co.jp'},
-    {n:'テクノエイト', url:''},
-  ]},
+  {
+    id: 'A', label: 'エリア A',
+    booths: [
+      {n: 'タカラベルモント'},
+      {n: 'エステシモ'},
+      {n: 'マイクロバブル・ジャパン'},
+      {n: 'サインド（Beauty Merit）'},
+      {n: 'soeasy'},
+      {n: '滝川'},
+      {n: '菊星'},
+      {n: 'ダイソン'},
+      {n: 'AVEDA'},
+      {n: 'モロッカンオイルジャパン'},
+      {n: 'ガモウ販売促進部'},
+    ]
+  },
+  {
+    id: 'B', label: 'エリア B',
+    booths: [
+      {n: '日本ロレアル'},
+      {n: 'アマトラ'},
+      {n: 'セフティ'},
+      {n: 'リアル化学'},
+      {n: 'ミルボン'},
+      {n: 'ヘンケルジャパン'},
+      {n: 'ニューウェイジャパン'},
+      {n: 'アリミノ'},
+    ]
+  },
+  {
+    id: 'C', label: 'エリア C',
+    booths: [
+      {n: 'ホーユー'},
+      {n: '武田'},
+      {n: '千代田化学'},
+      {n: 'ウエラ'},
+      {n: 'underbar plus（UnG）'},
+      {n: 'GOALD JAPAN'},
+      {n: 'ルベル／タカラベルモント'},
+    ]
+  },
+  {
+    id: 'D', label: 'エリア D',
+    booths: [
+      {n: 'TooB'},
+      {n: 'ユーグレナ'},
+      {n: 'セフィーヌ'},
+      {n: 'SHIGETA PARIS'},
+      {n: 'MYHONEY'},
+      {n: 'コーセープロフェッショナル'},
+      {n: 'RadiAct（PROLASH）'},
+      {n: 'BJC'},
+      {n: 'イムダイン'},
+    ]
+  },
+  {
+    id: 'E', label: 'エリア E',
+    booths: [
+      {n: 'サンコール'},
+      {n: 'テクノエイト'},
+      {n: 'b-ex'},
+      {n: '中野製薬'},
+    ]
+  },
+  {
+    id: 'F', label: 'エリア F',
+    booths: [
+      {n: 'グランクラージュ'},
+      {n: 'デミコスメティクス'},
+      {n: 'イーラル'},
+      {n: 'ナプラ'},
+      {n: 'ビーファースト'},
+      {n: 'マデナ'},
+      {n: 'sinsコスメティクス'},
+      {n: 'ハホニコ'},
+    ]
+  },
+  {
+    id: 'G', label: 'エリア G',
+    booths: [
+      {n: '香栄化学'},
+      {n: 'ワイマック'},
+      {n: '自由が丘クリニック'},
+      {n: "F'sビューティー"},
+      {n: '野口総合研究所'},
+      {n: '日本グランデックス化粧品'},
+      {n: 'パシフィックプロダクツ'},
+      {n: 'カエタステクノロジー'},
+    ]
+  },
+  {
+    id: 'H', label: 'エリア H',
+    booths: [
+      {n: 'バルクオム'},
+      {n: 'アデランス'},
+      {n: '日理'},
+      {n: 'サクシード'},
+      {n: 'フェザー（レオンカ）'},
+      {n: '山野美容商事'},
+      {n: '内海'},
+      {n: '水谷理美容鋏製作所／REUZEL'},
+    ]
+  },
+  {
+    id: 'I', label: 'エリア I',
+    booths: [
+      {n: 'KINUJO'},
+      {n: 'Kirala'},
+      {n: 'YA-MAN'},
+      {n: 'MUK'},
+      {n: 'ツインバード'},
+      {n: 'アンドナイン'},
+      {n: 'JadeJapan（LOA）'},
+      {n: 'awaas'},
+      {n: 'LOWBAL'},
+      {n: '大西'},
+      {n: '1DK'},
+    ]
+  },
 ];
 
-const TOTAL   = BLOCKS.reduce((s,b) => s + b.booths.length, 0);
+const TOTAL   = BLOCKS.reduce((s, b) => s + b.booths.length, 0);
 const params  = new URLSearchParams(location.search);
 const rowId   = params.get('id') || '';
 const un      = params.get('un') ? decodeURIComponent(params.get('un')) : '';
@@ -299,9 +324,6 @@ function openModal(key, b, blk) {
   document.getElementById('m-name').textContent  = b.n;
   const isVisited = visited.has(key);
   document.getElementById('m-visited').className = 'modal-visited-badge' + (isVisited ? ' show' : '');
-  const hp = document.getElementById('m-hp');
-  if (b.url) { hp.href = b.url; hp.style.display = 'flex'; }
-  else        { hp.style.display = 'none'; }
   const chk = document.getElementById('m-chk');
   chk.textContent = isVisited ? '訪問済みを取り消す' : '訪問しました ✓';
   chk.className   = 'btn-check ' + (isVisited ? 'undo' : 'do');
